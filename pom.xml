@@ -40,5 +40,10 @@
             <artifactId>postgresql</artifactId>
             <version>42.6.0</version>
         </dependency>
+        <dependency>
+            <groupId>itextpdf-5.4.0</groupId>
+            <artifactId>itextpdf-5.4.0</artifactId>
+            <version>5.4</version>
+        </dependency>
     </dependencies>  
 </project>
