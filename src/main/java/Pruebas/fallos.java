@@ -1,19 +1,16 @@
 package Pruebas;
 
-import com.mycompany.mecatech.views.*;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
-import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 
-public class cuestionario extends javax.swing.JPanel {
+public class fallos extends javax.swing.JPanel {
 
-    public cuestionario() {
+    public fallos() {
         initComponents();
         InitStyles();
         
@@ -36,7 +33,7 @@ public class cuestionario extends javax.swing.JPanel {
         bg = new javax.swing.JPanel();
         dimensiones_resp = new javax.swing.JTextField();
         title = new javax.swing.JLabel();
-        addButton = new javax.swing.JButton();
+        btn_guardar = new javax.swing.JButton();
         Nombre = new javax.swing.JLabel();
         tipo_equipo = new javax.swing.JLabel();
         Nombre_resp = new javax.swing.JTextField();
@@ -58,15 +55,15 @@ public class cuestionario extends javax.swing.JPanel {
 
         title.setText("Equipos");
 
-        addButton.setBackground(new java.awt.Color(18, 90, 173));
-        addButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("Guardar");
-        addButton.setBorderPainted(false);
-        addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        addButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_guardar.setBackground(new java.awt.Color(18, 90, 173));
+        btn_guardar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_guardar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_guardar.setText("Guardar");
+        btn_guardar.setBorderPainted(false);
+        btn_guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
+                btn_guardarActionPerformed(evt);
             }
         });
 
@@ -128,7 +125,7 @@ public class cuestionario extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(71, 71, 71)
-                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(223, 223, 223))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(85, 85, 85)
@@ -170,7 +167,7 @@ public class cuestionario extends javax.swing.JPanel {
                 .addComponent(descripcion_resp, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addButton)
+                    .addComponent(btn_guardar)
                     .addComponent(Nuevo))
                 .addContainerGap())
         );
@@ -193,14 +190,48 @@ public class cuestionario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        String descripcionTexto = descripcion_resp.getText().toLowerCase();
 
-        generarPDF();
-        
-    }//GEN-LAST:event_addButtonActionPerformed
+        List<String> problemas = new ArrayList<>();
+
+        if (descripcionTexto.contains("presion") && descripcionTexto.contains("bomba")) {
+            Pattern patronNumero = Pattern.compile("\\d+");
+            Matcher matcherNumero = patronNumero.matcher(descripcionTexto);
+
+            if (matcherNumero.find()) {
+                int valorPresion = Integer.parseInt(matcherNumero.group());
+
+                if (valorPresion < 50) {
+                    problemas.add("Posible problema de baja presión en la bomba. Verificar tuberías y válvulas.");
+                } else if (valorPresion > 100) {
+                    problemas.add("Posible problema de alta presión en la bomba. Verificar sistema de regulación.");
+                }
+            }
+        }
+
+        if (descripcionTexto.contains("sobrecalentamiento")) {
+            problemas.add("Posible problema de sobrecalentamiento en la bomba. Verificar sistema de enfriamiento.");
+        }
+
+        if (descripcionTexto.contains("flujo") && descripcionTexto.contains("inestable")) {
+            problemas.add("Posible problema de flujo inestable en la bomba. Verificar posibles obstrucciones o fugas.");
+        }
+
+        if (!problemas.isEmpty()) {
+            String mensaje = "Problemas detectados en la bomba:\n";
+            for (String problema : problemas) {
+                mensaje += problema + "\n";
+            }
+            JOptionPane.showMessageDialog(this, mensaje);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontraron problemas relacionados con la descripción proporcionada.");
+        }
+    
+    }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-        limpiarCampos();
+        
     }//GEN-LAST:event_NuevoActionPerformed
 
 
@@ -208,8 +239,8 @@ public class cuestionario extends javax.swing.JPanel {
     private javax.swing.JLabel Nombre;
     private javax.swing.JTextField Nombre_resp;
     private javax.swing.JButton Nuevo;
-    private javax.swing.JButton addButton;
     private javax.swing.JPanel bg;
+    private javax.swing.JButton btn_guardar;
     private javax.swing.JLabel consumo;
     private javax.swing.JTextField consumo_resp;
     private javax.swing.JLabel descripcion;
@@ -223,65 +254,6 @@ public class cuestionario extends javax.swing.JPanel {
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
-
-    // Función para generar el PDF con los datos del formulario
-
-private void generarPDF() {
-    String rutaArchivo = "C:\\Users\\mafyi\\OneDrive\\Escritorio\\avance analisis\\DatosEquipo.pdf"; // Ruta y nombre del archivo PDF
-
-    Document documento = new Document(PageSize.A4);
-
-    try {
-        PdfWriter.getInstance(documento, new FileOutputStream(rutaArchivo));
-        documento.open();
-
-        PdfPTable tabla = new PdfPTable(6); // Seis columnas para cada campo
-
-        // Encabezados
-        tabla.addCell("Nombre del Equipo");
-        tabla.addCell("Tipo de Equipo");
-        tabla.addCell("Dimensiones");
-        tabla.addCell("Consumo");
-        tabla.addCell("Modelo");
-        tabla.addCell("Descripción del fallo");
-
-        // Obtener datos del formulario
-        String nombreEquipo = Nombre_resp.getText();
-        String tipoEquipo = tipo_equipo_resp.getText();
-        String descripcionFallo = descripcion_resp.getText();
-        String dimensionesEquipo = dimensiones_resp.getText(); // Campo de dimensiones
-        String consumoEquipo = consumo_resp.getText(); // Campo de consumo
-        String modeloEquipo = modelo_resp.getText(); // Campo de modelo
-
-        // Agregar datos al PDF
-        tabla.addCell(nombreEquipo);
-        tabla.addCell(tipoEquipo);
-        tabla.addCell(dimensionesEquipo);
-        tabla.addCell(consumoEquipo);
-        tabla.addCell(modeloEquipo);
-        tabla.addCell(descripcionFallo);
-
-        documento.add(tabla);
-        documento.close();
-
-        JOptionPane.showMessageDialog(this, "PDF creado correctamente.", "PDF Generado", JOptionPane.INFORMATION_MESSAGE);
-
-    } catch (DocumentException | java.io.IOException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al crear el PDF.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
-
-
-private void limpiarCampos() {
-    // Limpiar los campos del formulario
-    Nombre_resp.setText("");
-    tipo_equipo_resp.setText("");
-    dimensiones_resp.setText("");
-    consumo_resp.setText("");
-    modelo_resp.setText("");
-    descripcion_resp.setText("");
-}
 
 
 }
