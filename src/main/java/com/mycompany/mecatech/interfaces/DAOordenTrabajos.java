@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Aldair Raymundo
  */
-public interface DAOrdenTrabajos {
+public interface DAOordenTrabajos {
     public void registrar (OrdenTrabajos oit) throws Exception;
     public void modificar (OrdenTrabajos oit)throws Exception;
     public  OrdenTrabajos getOIT(String oitID) throws Exception;
