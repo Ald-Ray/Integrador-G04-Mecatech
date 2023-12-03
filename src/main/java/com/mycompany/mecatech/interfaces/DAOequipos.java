@@ -14,6 +14,7 @@ import java.util.List;
 public interface DAOequipos {
     public void registrar (equipos equipo) throws Exception;
     public void modificar (equipos equipo)throws Exception;
-    public void eliminar (equipos equipo)throws Exception;
-    public List<equipos> listar() throws Exception;
+    public void eliminar (int equipo)throws Exception;
+    public List<equipos> listar(String activo) throws Exception;
+    public equipos getEquiposID(int equipoID) throws Exception;
 }
