@@ -25,7 +25,7 @@ public class ViewPrincipal extends javax.swing.JPanel {
             DAOordenTrabajos dao = new DAOordentrabajoImpl();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             dao.listar("").forEach((u) -> model.addRow(new Object[]{
-                u.getOIT(), u.getID_equipo(), u.getDescripcion(), u.getFechaEntrega(), u.getFecha_inicio(), u.getFecha_final()
+                u.getOIT(), u.getID_equipo(), u.getDescripcion(), u.getDiagnostico(), u.getFechaEntrega()
             }));
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -44,9 +44,7 @@ public class ViewPrincipal extends javax.swing.JPanel {
         title = new javax.swing.JLabel();
         oitSearch = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
-        finishButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
-        addButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -71,18 +69,6 @@ public class ViewPrincipal extends javax.swing.JPanel {
             }
         });
 
-        finishButton.setBackground(new java.awt.Color(18, 90, 173));
-        finishButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        finishButton.setForeground(new java.awt.Color(255, 255, 255));
-        finishButton.setText("Finalizar");
-        finishButton.setBorderPainted(false);
-        finishButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        finishButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finishButtonActionPerformed(evt);
-            }
-        });
-
         editButton.setBackground(new java.awt.Color(18, 90, 173));
         editButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         editButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -95,32 +81,20 @@ public class ViewPrincipal extends javax.swing.JPanel {
             }
         });
 
-        addButton.setBackground(new java.awt.Color(18, 90, 173));
-        addButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("Nuevo");
-        addButton.setBorderPainted(false);
-        addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
-            }
-        });
-
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "OIT", "ID_Equipo", "Descripcion", "Fecha de Entrega", "Fecha de Inicio", "Fecha de Fin"
+                "OIT", "ID_Equipo", "Descripcion", "Diagnostico", "Fecha de Entrega"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -153,11 +127,7 @@ public class ViewPrincipal extends javax.swing.JPanel {
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(finishButton))
+                                .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
                                 .addComponent(oitSearch)
@@ -177,10 +147,7 @@ public class ViewPrincipal extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addButton)
-                    .addComponent(editButton)
-                    .addComponent(finishButton))
+                .addComponent(editButton)
                 .addGap(58, 58, 58))
         );
 
@@ -200,20 +167,12 @@ public class ViewPrincipal extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jTable1MousePressed
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        Dashboard.ShowJPanel(new ViewNewOrdenTrabajo());
-    }//GEN-LAST:event_addButtonActionPerformed
-
-    private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishButtonActionPerformed
-        Dashboard.ShowJPanel(new ViewFinishOrdenTrabajo());
-    }//GEN-LAST:event_finishButtonActionPerformed
-
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         if (jTable1.getSelectedRow()>-1) {
             try {
-                String oitID = (String) jTable1.getValueAt(jTable1.getSelectedRow(),0);
+                int oitID = (int) jTable1.getValueAt(jTable1.getSelectedRow(),0);
                 DAOordenTrabajos dao = new DAOordentrabajoImpl();
-                Dashboard.ShowJPanel(new ViewNewOrdenTrabajo(dao.getOIT(oitID)));
+                Dashboard.ShowJPanel(new ViewDiagnostico(dao.getOIT(oitID)));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -226,7 +185,7 @@ public class ViewPrincipal extends javax.swing.JPanel {
            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
            model.setRowCount(0);
            dao.listar(oitSearch.getText()).forEach((u)->model.addRow(new Object[]{
-               u.getOIT(), u.getID_equipo(), u.getDescripcion(), u.getFechaEntrega(), u.getFecha_inicio(), u.getFecha_final()
+               u.getOIT(), u.getID_equipo(), u.getDescripcion(), u.getDiagnostico(), u.getFechaEntrega()
            }));
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -236,10 +195,8 @@ public class ViewPrincipal extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
     private javax.swing.JPanel bg;
     private javax.swing.JButton editButton;
-    private javax.swing.JButton finishButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField oitSearch;

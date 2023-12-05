@@ -22,13 +22,11 @@ public class DAOordentrabajoImpl extends DatabaseMecatech implements DAOordenTra
     public void registrar(OrdenTrabajos oit) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareCall("INSERT INTO ordentrabajos(oit,id_equipo,descripcion,fecha_entrega,fecha_inicio,fecha_fin) VALUES(?,?,?,?,?,?)");
-            st.setString(1,oit.getOIT());
-            st.setInt(2, oit.getID_equipo());
-            st.setString(3, oit.getDescripcion());
-            st.setString(4, oit.getFechaEntrega());
-            st.setString(5, oit.getFecha_inicio());
-            st.setString(6, oit.getFecha_final());
+            PreparedStatement st = this.conexion.prepareCall("INSERT INTO ordentrabajos(id_equipo,descripcion,fecha_entrega,diagnostico) VALUES(?,?,?,?)");
+            st.setInt(1, oit.getID_equipo());
+            st.setString(2, oit.getDescripcion());
+            st.setString(3, oit.getFechaEntrega());
+            st.setString(4, oit.getDiagnostico());
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -42,13 +40,12 @@ public class DAOordentrabajoImpl extends DatabaseMecatech implements DAOordenTra
     public void modificar(OrdenTrabajos oit) throws Exception {
         try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("UPDATE ordentrabajos SET oit = ?, id_equipo = ?, descripcion = ?, fecha_entrega = ?, fecha_inicio = ?, fecha_fin = ?");
-            st.setString(1, oit.getOIT());
-            st.setInt(2, oit.getID_equipo());
-            st.setString(3, oit.getDescripcion());
-            st.setString(4, oit.getFechaEntrega());
-            st.setString(5,oit.getFecha_inicio());
-            st.setString(6, oit.getFecha_final());
+            PreparedStatement st = this.conexion.prepareStatement("UPDATE ordentrabajos SET id_equipo = ?, descripcion = ?, fecha_entrega = ?, diagnostico = ? where oit = ?");
+            st.setInt(1, oit.getID_equipo());
+            st.setString(2, oit.getDescripcion());
+            st.setString(3, oit.getFechaEntrega());
+            st.setString(4,oit.getDiagnostico());
+            st.setInt(5, oit.getOIT());
             st.executeUpdate();
             st.close();
         } catch (Exception e) {
@@ -72,12 +69,11 @@ public class DAOordentrabajoImpl extends DatabaseMecatech implements DAOordenTra
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                OrdenTrabajos oit = new OrdenTrabajos();
-               oit.setOIT(rs.getString("oit"));
+               oit.setOIT(rs.getInt("oit"));
                oit.setID_equipo(rs.getInt("id_equipo"));
                oit.setDescripcion(rs.getString("descripcion"));
                oit.setFechaEntrega(rs.getString("fecha_entrega"));
-               oit.setFecha_inicio(rs.getString("fecha_inicio"));
-               oit.setFecha_final(rs.getString("fecha_fin"));
+               oit.setDiagnostico(rs.getString("diagnostico"));
                lista.add(oit);
             }
         } catch (Exception e) {
@@ -89,23 +85,22 @@ public class DAOordentrabajoImpl extends DatabaseMecatech implements DAOordenTra
     }
 
     @Override
-    public OrdenTrabajos getOIT(String oitID) throws Exception {
+    public OrdenTrabajos getOIT(int oitID) throws Exception {
         OrdenTrabajos oit = null;
         
         try {
             this.Conectar();
             PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM ordentrabajos WHERE oit = ? LIMIT 1;");
-            st.setString(1, oitID);
+            st.setInt(1, oitID);
             ResultSet rs = st.executeQuery();
             
             while (rs.next()) {                
                 oit = new OrdenTrabajos();
-                oit.setOIT(rs.getString("oit"));
+                oit.setOIT(rs.getInt("oit"));
                 oit.setID_equipo(rs.getInt("id_equipo"));
                 oit.setDescripcion(rs.getString("descripcion"));
                 oit.setFechaEntrega(rs.getString("fecha_entrega"));
-                oit.setFecha_inicio(rs.getString("fecha_inicio"));
-                oit.setFecha_final(rs.getString("fecha_fin"));
+                oit.setDiagnostico(rs.getString("diagnostico"));;
             }
             rs.close();
             st.close();

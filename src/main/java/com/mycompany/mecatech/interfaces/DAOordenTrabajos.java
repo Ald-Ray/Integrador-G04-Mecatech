@@ -14,6 +14,6 @@ import java.util.List;
 public interface DAOordenTrabajos {
     public void registrar (OrdenTrabajos oit) throws Exception;
     public void modificar (OrdenTrabajos oit)throws Exception;
-    public  OrdenTrabajos getOIT(String oitID) throws Exception;
+    public  OrdenTrabajos getOIT(int oitID) throws Exception;
     public List<OrdenTrabajos> listar(String oits) throws Exception;  
 }

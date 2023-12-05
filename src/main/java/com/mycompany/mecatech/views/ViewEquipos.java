@@ -58,6 +58,11 @@ public class ViewEquipos extends javax.swing.JPanel {
 
         equipoSearch.setToolTipText("");
         equipoSearch.setActionCommand("<Not Set>");
+        equipoSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                equipoSearchActionPerformed(evt);
+            }
+        });
 
         searchButton.setBackground(new java.awt.Color(18, 90, 173));
         searchButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -245,6 +250,10 @@ public class ViewEquipos extends javax.swing.JPanel {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void equipoSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equipoSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_equipoSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
