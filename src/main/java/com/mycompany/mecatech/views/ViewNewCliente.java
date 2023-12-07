@@ -72,9 +72,27 @@ public class ViewNewCliente extends javax.swing.JPanel {
 
         Cliente.setText("Cliente");
 
+        nomCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomClienteKeyTyped(evt);
+            }
+        });
+
         Encargado.setText("Encargado");
 
+        nomEncargado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomEncargadoKeyTyped(evt);
+            }
+        });
+
         Telefono.setText("Telefono");
+
+        telefonoTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoTxtKeyTyped(evt);
+            }
+        });
 
         Correo.setText("Correo");
 
@@ -168,8 +186,17 @@ public class ViewNewCliente extends javax.swing.JPanel {
           javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
           nomCliente.requestFocus();
           return;
-       }  
-       
+       } 
+       // Validacion de numero telefonico
+        if (telefonoTxt.getText().length()!=9) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Numero incorrecto, debe ingresar 9 digitos.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        } 
+       //validacion de correo
+       if(!correoTxt.getText().contains("@")||!correoTxt.getText().contains(".")){
+           javax.swing.JOptionPane.showMessageDialog(this, "Correo no valido.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+       }
        com.mycompany.mecatech.models.clientes cliente = isEdition ? clienteEdition : new com.mycompany.mecatech.models.clientes();
        cliente.setNom_cliente(nCliente);
        cliente.setEncargado(nEncargado);
@@ -199,6 +226,28 @@ public class ViewNewCliente extends javax.swing.JPanel {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_buttonActionPerformed
+
+    private void telefonoTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoTxtKeyTyped
+        char c = evt.getKeyChar();
+        if (c>='0'&& c<='9'&& telefonoTxt.getText().length()<9) {
+            
+        }else{
+            evt.consume();
+        }
+        if (telefonoTxt.getText().length()==0 && c!='9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_telefonoTxtKeyTyped
+
+    private void nomClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomClienteKeyTyped
+        char c = evt.getKeyChar();
+        if ((c<'a'||c>'z')&&(c<'A'||c>'Z'))evt.consume();
+    }//GEN-LAST:event_nomClienteKeyTyped
+
+    private void nomEncargadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomEncargadoKeyTyped
+        char c = evt.getKeyChar();
+        if ((c<'a'||c>'z')&&(c<'A'||c>'Z'))evt.consume();
+    }//GEN-LAST:event_nomEncargadoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Cliente;

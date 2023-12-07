@@ -114,6 +114,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nomCliente">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nomClienteKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Encargado">
           <Properties>
@@ -121,6 +124,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="nomEncargado">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nomEncargadoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Telefono">
           <Properties>
@@ -128,6 +134,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="telefonoTxt">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="telefonoTxtKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Correo">
           <Properties>

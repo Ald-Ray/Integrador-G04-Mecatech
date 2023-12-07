@@ -11,26 +11,29 @@ import java.util.logging.Logger;
 
 
 public class ViewNewEquipo extends javax.swing.JPanel {
-
+    
     boolean isEdition = false;
     com.mycompany.mecatech.models.equipos equipoEdition;
-
+    Utils combo = new Utils();
     public ViewNewEquipo() {
         initComponents();
+        clentIDtxt.setVisible(false);
         InitStyles();
+        combo.RellenarComboBox("clientes", "nom_cliente", jComboBoxIDcliente);
     }
 
     public ViewNewEquipo(com.mycompany.mecatech.models.equipos equipo) {
         initComponents();
+        clentIDtxt.setVisible(false);
         isEdition = true;
         equipoEdition = equipo;
         InitStyles();
-    }
-
+        combo.RellenarComboBox("clientes", "nom_cliente", jComboBoxIDcliente);
+    } 
+    
     private void InitStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h2");
         title.setForeground(Color.black);
-        idClienteTxt.putClientProperty("JTextField.placeholderText", "Ingrese el codigo del Cliente");
         activoTxt.putClientProperty("JTextField.placeholderText", "Ingrese el nombre del Activo.");
         descripcionTxt.putClientProperty("JTextField.placeholderText", "Ingrese descripcion del equipo.");
         
@@ -40,7 +43,7 @@ public class ViewNewEquipo extends javax.swing.JPanel {
             button.setText("Guardar");
             
             if (equipoEdition != null) {
-                idClienteTxt.setText(equipoEdition.getID_cliente()+"");
+                clentIDtxt.setText(equipoEdition.getID_cliente()+"");
                 activoTxt.setText(equipoEdition.getActivo());
                 descripcionTxt.setText(equipoEdition.getDescripcion());
             }
@@ -59,12 +62,13 @@ public class ViewNewEquipo extends javax.swing.JPanel {
         bg = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         IDcliente = new javax.swing.JLabel();
-        idClienteTxt = new javax.swing.JTextField();
         activo = new javax.swing.JLabel();
         activoTxt = new javax.swing.JTextField();
         Descripción = new javax.swing.JLabel();
         descripcionTxt = new javax.swing.JTextField();
         button = new javax.swing.JButton();
+        jComboBoxIDcliente = new javax.swing.JComboBox<>();
+        clentIDtxt = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -90,20 +94,39 @@ public class ViewNewEquipo extends javax.swing.JPanel {
             }
         });
 
+        jComboBoxIDcliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxIDclienteItemStateChanged(evt);
+            }
+        });
+        jComboBoxIDcliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxIDclienteActionPerformed(evt);
+            }
+        });
+
+        clentIDtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clentIDtxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(252, 252, 252)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(IDcliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(activo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Descripción, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(descripcionTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(activoTxt)
-                    .addComponent(idClienteTxt))
-                .addGap(244, 244, 244))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(IDcliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(activo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Descripción, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(descripcionTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addComponent(activoTxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxIDcliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(clentIDtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -121,7 +144,9 @@ public class ViewNewEquipo extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(IDcliente, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(idClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clentIDtxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxIDcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(activo, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -149,18 +174,19 @@ public class ViewNewEquipo extends javax.swing.JPanel {
 
     private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         try {                                       
-            String idClent = idClienteTxt.getText();
+            //String idClent = idClienteTxt.getText();
+            String idClent = clentIDtxt.getText();
             String actv = activoTxt.getText();
             String dscrp = descripcionTxt.getText();
-            
+            //String comIDclent = jComboBoxIDcliente.getToolTipText();
             // Validaciones para los campos
             if (idClent.isEmpty()|| actv.isEmpty()||dscrp.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-                idClienteTxt.requestFocus();
+                clentIDtxt.requestFocus();
                 return;
             }else if (!Utils.isNumeric(idClent)) {
                 javax.swing.JOptionPane.showMessageDialog(this,"El campo ID Cliente debe ser un numero entero");
-                idClienteTxt.requestFocus();
+                clentIDtxt.requestFocus();
                 return;
             }else if (Integer.parseInt(idClent)<=0) {
                 javax.swing.JOptionPane.showMessageDialog(this, "El campo ID cliente debe ser mayor que 0. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -171,7 +197,7 @@ public class ViewNewEquipo extends javax.swing.JPanel {
             com.mycompany.mecatech.models.clientes currentCliente = daoClientes.getClienteID(Integer.parseInt(idClent));
             if (currentCliente == null) {
                 javax.swing.JOptionPane.showMessageDialog(this, "No se encontró ningún cliente con ese ID. \n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-                idClienteTxt.requestFocus();
+                clentIDtxt.requestFocus();
                 return;
             }
             
@@ -194,7 +220,7 @@ public class ViewNewEquipo extends javax.swing.JPanel {
                 javax.swing.JOptionPane.showMessageDialog(this,"Equipo " + successMsg + " exitosamente.\n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE );
                 
                 if (!isEdition) {
-                    idClienteTxt.setText("");
+                    clentIDtxt.setText("");
                     activoTxt.setText("");
                     descripcionTxt.setText("");
                 }
@@ -208,6 +234,19 @@ public class ViewNewEquipo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonActionPerformed
 
+    private void jComboBoxIDclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxIDclienteActionPerformed
+  
+    }//GEN-LAST:event_jComboBoxIDclienteActionPerformed
+
+    private void clentIDtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clentIDtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clentIDtxtActionPerformed
+
+    private void jComboBoxIDclienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxIDclienteItemStateChanged
+        Utils getIdclient = new Utils();
+        getIdclient.obtenerIDdeCombobox("clientes", "nom_cliente", "id_cliente", jComboBoxIDcliente, clentIDtxt);
+    }//GEN-LAST:event_jComboBoxIDclienteItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Descripción;
     private javax.swing.JLabel IDcliente;
@@ -215,8 +254,9 @@ public class ViewNewEquipo extends javax.swing.JPanel {
     private javax.swing.JTextField activoTxt;
     private javax.swing.JPanel bg;
     private javax.swing.JButton button;
+    private javax.swing.JTextField clentIDtxt;
     private javax.swing.JTextField descripcionTxt;
-    private javax.swing.JTextField idClienteTxt;
+    private javax.swing.JComboBox<String> jComboBoxIDcliente;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,17 +19,21 @@ import javax.swing.JOptionPane;
 public class ViewDiagnostico extends javax.swing.JPanel {
     boolean isEdition = false;
     com.mycompany.mecatech.models.OrdenTrabajos diagEdition;
+    Utils combo = new Utils();
     
     public ViewDiagnostico() {
         initComponents();
+        idEquipoTxt.setVisible(false);
         InitStyles();
-
+        combo.RellenarComboBox("equipos", "activo", idEquipoBox);
     }
     public ViewDiagnostico(com.mycompany.mecatech.models.OrdenTrabajos oit) {
         initComponents();
+         idEquipoTxt.setVisible(false);
         isEdition = true;
         diagEdition = oit;
         InitStyles();
+        combo.RellenarComboBox("equipos", "activo", idEquipoBox);
     }
     
     private void InitStyles() {
@@ -70,6 +74,7 @@ public class ViewDiagnostico extends javax.swing.JPanel {
         descripcion = new javax.swing.JLabel();
         IDequipoLabel = new javax.swing.JLabel();
         idEquipoTxt = new javax.swing.JTextField();
+        idEquipoBox = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 450));
@@ -101,6 +106,17 @@ public class ViewDiagnostico extends javax.swing.JPanel {
 
         IDequipoLabel.setText("ID Equipo");
 
+        idEquipoBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                idEquipoBoxItemStateChanged(evt);
+            }
+        });
+        idEquipoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idEquipoBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -109,42 +125,51 @@ public class ViewDiagnostico extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addGap(618, 618, 618))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(176, 176, 176))
-                    .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(descripcionTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(idEquipoTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IDequipoLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fechaEntrgTxt, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(270, 270, 270))
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(idEquipoBox, 0, 160, Short.MAX_VALUE)
+                                    .addComponent(IDequipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(fechaEntrgTxt)
+                                    .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                            .addComponent(descripcionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(IDequipoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(fechaEntrgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(IDequipoLabel)
+                    .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idEquipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaEntrgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(descripcionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(86, 86, 86)
                 .addComponent(button)
-                .addGap(48, 48, 48))
+                .addGap(51, 51, 51))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -260,6 +285,15 @@ public class ViewDiagnostico extends javax.swing.JPanel {
     
     }//GEN-LAST:event_buttonActionPerformed
 
+    private void idEquipoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idEquipoBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idEquipoBoxActionPerformed
+
+    private void idEquipoBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idEquipoBoxItemStateChanged
+        Utils getIdclient = new Utils();
+        getIdclient.obtenerIDdeCombobox("equipos", "activo", "id_equipo", idEquipoBox, idEquipoTxt);
+    }//GEN-LAST:event_idEquipoBoxItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IDequipoLabel;
@@ -269,6 +303,7 @@ public class ViewDiagnostico extends javax.swing.JPanel {
     private javax.swing.JTextField descripcionTxt;
     private javax.swing.JLabel fechaEntrgLabel;
     private javax.swing.JTextField fechaEntrgTxt;
+    private javax.swing.JComboBox<String> idEquipoBox;
     private javax.swing.JTextField idEquipoTxt;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

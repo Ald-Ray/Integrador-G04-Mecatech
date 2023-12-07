@@ -1,11 +1,19 @@
 package com.mycompany.mecatech.utils;
 
-import java.text.DateFormat;
+import com.mycompany.mecatech.db.DatabaseMecatech;
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-public class Utils {
+public class Utils extends DatabaseMecatech{
     
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
@@ -24,29 +32,6 @@ public class Utils {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
         return formateador.format(ahora);
     }
-    
-    //Diferencias entre dos fechas
-    //@param fechaInicial La fecha de inicio
-    //@param fechaFinal  La fecha de fin
-    //@return Retorna el numero de dias entre dos fechas
-    public static synchronized int diferenciasDeFechas(Date fechaInicial, Date fechaFinal) throws ParseException {
-
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        String fechaInicioString = df.format(fechaInicial);
-        try {
-            fechaInicial = df.parse(fechaInicioString);
-        } catch (ParseException ex) {
-        }
-
-        String fechaFinalString = df.format(fechaFinal);
-        fechaFinal = df.parse(fechaFinalString);
-
-        long fechaInicialMs = fechaInicial.getTime();
-        long fechaFinalMs = fechaFinal.getTime();
-        long diferencia = fechaFinalMs - fechaInicialMs;
-        double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        return ((int) dias);
-    }
 
     //Devuele un java.util.Date desde un String en formato dd-MM-yyyy
     //@param La fecha a convertir a formato date
@@ -63,4 +48,39 @@ public class Utils {
         }
     }
     
+    public void RellenarComboBox(String tabla, String valor, JComboBox combo){
+        String sql="SELECT * FROM "+ tabla;
+        Statement st;
+        try {
+            this.Conectar();
+            st = conexion.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            combo.removeAllItems();
+            
+            while (rs.next()){
+                combo.addItem(rs.getString(valor));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR" + e.toString());
+        }
+         
+    }
+    
+   public void obtenerIDdeCombobox(  String tabla, String valor,String valorId,JComboBox combo, JTextField idTxt){
+       String consulta = "SELECT "+tabla+"."+valorId+" from "+tabla+" where "+tabla+"."+valor+" = ?";
+       
+       try {
+           this.Conectar();
+           CallableStatement cs = conexion.prepareCall(consulta);
+           cs.setString(1, combo.getSelectedItem().toString());
+           cs.execute();
+           ResultSet rs = cs.executeQuery();
+           
+           if (rs.next()) {
+               idTxt.setText(rs.getString(valorId));
+           }
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(null, "ERROR" + e.toString());
+       }
+   }
 }
