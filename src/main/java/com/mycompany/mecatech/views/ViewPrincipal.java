@@ -145,10 +145,10 @@ public class ViewPrincipal extends javax.swing.JPanel {
                     .addComponent(oitSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(editButton)
-                .addGap(58, 58, 58))
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

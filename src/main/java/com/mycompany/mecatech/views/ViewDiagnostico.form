@@ -29,7 +29,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="bg" alignment="0" max="32767" attributes="0"/>
+          <Component id="bg" pref="416" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -55,32 +55,32 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="descripcion" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="idEquipoBox" pref="160" max="32767" attributes="0"/>
-                                      <Component id="IDequipoLabel" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="idEquipoTxt" min="-2" pref="31" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="fechaEntrgTxt" max="32767" attributes="0"/>
-                                      <Component id="fechaEntrgLabel" pref="160" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="descripcionTxt" alignment="0" min="-2" pref="650" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="idEquipoBox" pref="160" max="32767" attributes="0"/>
+                              <Component id="IDequipoLabel" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="idEquipoTxt" min="-2" pref="31" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jCalendar1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="fechaEntrgLabel" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="fechaEntrgTxt" min="-2" pref="27" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
-                  <Component id="button" min="-2" pref="112" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="button" min="-2" pref="112" max="-2" attributes="0"/>
+                      <Component id="descripcion" min="-2" pref="197" max="-2" attributes="0"/>
+                      <Component id="descripcionTxt" min="-2" pref="450" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -88,26 +88,43 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="title" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="IDequipoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="fechaEntrgLabel" alignment="3" pref="38" max="32767" attributes="0"/>
+                  <Component id="title" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="IDequipoLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="idEquipoBox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="idEquipoTxt" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="185" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="descripcion" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="fechaEntrgLabel" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="fechaEntrgTxt" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jCalendar1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="descripcionTxt" min="-2" pref="96" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="button" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="idEquipoBox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="fechaEntrgTxt" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="idEquipoTxt" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="descripcion" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="descripcionTxt" min="-2" pref="96" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                  <Component id="button" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -161,7 +178,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="IDequipoLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ID Equipo"/>
+            <Property name="text" type="java.lang.String" value="Equipo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="idEquipoTxt">
@@ -179,6 +196,11 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="com.toedter.calendar.JCalendar" name="jCalendar1">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jCalendar1PropertyChange"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

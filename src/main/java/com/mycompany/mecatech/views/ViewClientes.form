@@ -60,7 +60,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="addClienteButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="editButton" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <Component id="editButton" min="-2" pref="89" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="deleteButton" min="-2" max="-2" attributes="0"/>
                               </Group>

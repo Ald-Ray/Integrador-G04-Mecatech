@@ -376,7 +376,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="navText">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Que tenemos para hoy {name} ?"/>
+                <Property name="text" type="java.lang.String" value="Que tenemos para hoy Ingeniero?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dateText">

@@ -76,7 +76,7 @@ public class ViewNewEquipo extends javax.swing.JPanel {
 
         title.setText("Registrar Equipo Nuevo");
 
-        IDcliente.setText("ID Cliente");
+        IDcliente.setText("Cliente");
 
         activo.setText("Activo");
 

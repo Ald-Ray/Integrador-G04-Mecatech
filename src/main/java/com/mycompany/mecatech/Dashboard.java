@@ -29,6 +29,7 @@ public class Dashboard extends javax.swing.JFrame {
         InitStyles();
         SetDate();
         InitContent();
+        btn_HojaVida.setVisible(false);
     }
     
     private void InitStyles() {
@@ -240,7 +241,7 @@ public class Dashboard extends javax.swing.JFrame {
         header.setBackground(new java.awt.Color(25, 118, 210));
         header.setPreferredSize(new java.awt.Dimension(744, 150));
 
-        navText.setText("Que tenemos para hoy {name} ?");
+        navText.setText("Que tenemos para hoy Ingeniero?");
 
         dateText.setText("{dayname} {day} de {month} de {year}");
 

@@ -7,6 +7,7 @@ import com.mycompany.mecatech.interfaces.DAOequipos;
 import com.mycompany.mecatech.interfaces.DAOordenTrabajos;
 import com.mycompany.mecatech.utils.Utils;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,12 +25,14 @@ public class ViewDiagnostico extends javax.swing.JPanel {
     public ViewDiagnostico() {
         initComponents();
         idEquipoTxt.setVisible(false);
+        fechaEntrgTxt.setVisible(false);
         InitStyles();
         combo.RellenarComboBox("equipos", "activo", idEquipoBox);
     }
     public ViewDiagnostico(com.mycompany.mecatech.models.OrdenTrabajos oit) {
         initComponents();
-         idEquipoTxt.setVisible(false);
+        idEquipoTxt.setVisible(false);
+        fechaEntrgTxt.setVisible(false);
         isEdition = true;
         diagEdition = oit;
         InitStyles();
@@ -75,6 +78,7 @@ public class ViewDiagnostico extends javax.swing.JPanel {
         IDequipoLabel = new javax.swing.JLabel();
         idEquipoTxt = new javax.swing.JTextField();
         idEquipoBox = new javax.swing.JComboBox<>();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 450));
@@ -104,7 +108,7 @@ public class ViewDiagnostico extends javax.swing.JPanel {
 
         descripcion.setText("Descripcion del Fallo ");
 
-        IDequipoLabel.setText("ID Equipo");
+        IDequipoLabel.setText("Equipo");
 
         idEquipoBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -114,6 +118,12 @@ public class ViewDiagnostico extends javax.swing.JPanel {
         idEquipoBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idEquipoBoxActionPerformed(evt);
+            }
+        });
+
+        jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jCalendar1PropertyChange(evt);
             }
         });
 
@@ -128,25 +138,25 @@ public class ViewDiagnostico extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(idEquipoBox, 0, 160, Short.MAX_VALUE)
+                            .addComponent(IDequipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(idEquipoBox, 0, 160, Short.MAX_VALUE)
-                                    .addComponent(IDequipoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(fechaEntrgTxt)
-                                    .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
-                            .addComponent(descripcionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fechaEntrgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(34, 34, 34)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(button, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(descripcionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
@@ -154,22 +164,33 @@ public class ViewDiagnostico extends javax.swing.JPanel {
             .addGroup(bgLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(IDequipoLabel)
-                    .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idEquipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaEntrgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descripcionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
-                .addComponent(button)
-                .addGap(51, 51, 51))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(IDequipoLabel)
+                        .addGap(18, 18, 18)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(idEquipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idEquipoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fechaEntrgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(fechaEntrgTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(206, 206, 206))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(descripcionTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(button)
+                                .addGap(150, 150, 150))))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -180,7 +201,7 @@ public class ViewDiagnostico extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 416, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -294,6 +315,13 @@ public class ViewDiagnostico extends javax.swing.JPanel {
         getIdclient.obtenerIDdeCombobox("equipos", "activo", "id_equipo", idEquipoBox, idEquipoTxt);
     }//GEN-LAST:event_idEquipoBoxItemStateChanged
 
+    private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
+        if(evt.getOldValue()!=null){
+            SimpleDateFormat ff = new SimpleDateFormat("dd/MM/yyyy");
+            fechaEntrgTxt.setText(ff.format(jCalendar1.getCalendar().getTime()));
+        }
+    }//GEN-LAST:event_jCalendar1PropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IDequipoLabel;
@@ -305,6 +333,7 @@ public class ViewDiagnostico extends javax.swing.JPanel {
     private javax.swing.JTextField fechaEntrgTxt;
     private javax.swing.JComboBox<String> idEquipoBox;
     private javax.swing.JTextField idEquipoTxt;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
