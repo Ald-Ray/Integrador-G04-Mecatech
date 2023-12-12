@@ -10,10 +10,10 @@ public class DatabaseMecatech {
 
     protected Connection conexion;
     private final String JDBC_DRIVER = "org.postgresql.Driver";
-    private final String DB_URL = "jdbc:postgresql://ep-delicate-disk-24831765.us-east-2.aws.neon.tech/Mecatech?user=aldray3002&password=HcO6jDRz5dEB&sslmode=require"; // Ajusta la URL según tu configuración.
+    private final String DB_URL = "jdbc:postgresql://ep-square-fog-26815683.us-east-2.aws.neon.tech/Mecatech?user=Jesus1594&password=fc8oxkXmbS5J&sslmode=require"; // Ajusta la URL según tu configuración.
 
-    private final String USER = "aldray3002"; // Reemplaza con tu nombre de usuario.
-    private final String PASS = "HcO6jDRz5dEB"; // Reemplaza con tu contraseña.
+    private final String USER = "Jesus1594"; // Reemplaza con tu nombre de usuario.
+    private final String PASS = "fc8oxkXmbS5J"; // Reemplaza con tu contraseña.
 
     public void Conectar() throws ClassNotFoundException {
         try {

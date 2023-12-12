@@ -14,6 +14,7 @@ import java.util.List;
 public interface DAOclientes {
     public void registrar (clientes cliente) throws Exception;
     public void modificar (clientes cliente)throws Exception;
-    public void eliminar (clientes cliente)throws Exception;
-    public List<clientes> listar() throws Exception;
+    public void eliminar (int cliente)throws Exception;
+    public List<clientes> listar(String Nom_clientes) throws Exception;
+    public clientes getClienteID(int clienteId) throws Exception;
 }
